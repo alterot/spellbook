@@ -1,0 +1,177 @@
+* {
+  box-sizing: border-box; 
+  margin: 0;
+  padding: 0;
+  font-family: 'MedievalSharp', cursive;
+  letter-spacing: 0.1rem;
+}
+
+html {
+  font-size: 16px; 
+}
+
+body {
+    position: relative;
+    min-height: 100vh; 
+    background-image: url('./images/winter.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #fff;
+}
+
+body::after {
+  content: "Background from Symbaroum by freeleaguepublishing.com";
+  position: absolute;
+  bottom: 10px;
+  padding-left: 20px;
+  font-size: 0.7rem;
+  color: white;
+}
+  
+header {
+    text-align: center;
+    padding: 20px;
+}
+  
+h1 {
+  margin: 20px;
+  font-size: 3rem;
+}
+  
+blockquote {
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 80%;
+  text-align: center;
+  padding: 20px;
+  margin: 20px auto;
+}
+
+main { 
+  position: relative;
+  max-width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 50px;
+  font-size: 2rem;
+}
+
+.spellList {
+  display: grid;
+  padding: 20px;;
+  border: solid 1px white;
+  gap: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  grid-template-rows: repeat(auto-fit, minmax(150, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.spell {
+  background-color: #222;
+  border-radius: 5px;
+  padding: 20px;
+  font-size: 1rem;
+  transition: transform 0.2s ease;
+}
+
+.spell:hover {
+  transform: scale(1.09);
+}
+
+.spell > p {
+  line-height: 1.2;
+}
+
+.spellName {
+  font-weight: 800;
+}
+
+.spellDescription {
+  font-size: 0.75rem;
+  margin: 5px;
+}
+
+button {
+  background-color: #222;
+  border: solid 1px white;
+  font-family: 'MedievalSharp', cursive;
+  color: #fff;
+  margin: 20px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+  opacity: 0.4;
+}
+
+button:hover {
+  opacity: 0.8;
+}  
+
+.removeSpell {
+  font-size: 0.75rem;
+  padding: 10px;
+}
+
+
+/* STYLING FOR THE FORM */
+
+#addSpell {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+}
+
+form {
+  display: grid;
+  border: solid 1px white;
+  border-radius: 5px;
+  gap: 10px;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 1);
+}
+
+label {
+  font-weight: 800;
+  color: #fff;
+}
+
+input,
+textarea {
+  background-color: #222;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  font-family: 'MedievalSharp', cursive;
+  font-size: 1rem;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+
+
+/* FOOTER  */
+footer {
+  text-align: center;
+  padding: 20px;
+  color: #fff;
+}
+
+footer p {
+  margin: 0;
+}
+  
+  

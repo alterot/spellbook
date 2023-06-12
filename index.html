@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Spellbook</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="javascript.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>BOOK OF SPELLS</h1>
+    </header>
+    <main>
+      <button id="addButton">Add new Spell</button>
+      <button>Edit Spell</button>
+
+      <form id="addSpell">
+        <label for="name">Spell Name:</label>
+        <input type="text" id="name" name="name">
+      
+        <label for="level">Spell Level:</label>
+        <input type="number" id="level" name="level" min="0" max="9">
+      
+        <label for="description">Description:</label>
+        <textarea id="description" name="description"></textarea>
+      
+        <button type="submit">Add Spell</button>
+      </form>
+
+      <div class="spellList">
+        
+      </div>
+      <blockquote>“The mask of magic is the means through which corruption is spread. The mask makes vice seem beautiful, 
+        turns squalor and nastiness into glamorous thrill, seduces the onlooker into the game - 
+        and leaves him or her with the corpse on his hands.”
+      <cite>-Unknown</cite></blockquote>
+    </main>
+    <footer>
+    </footer>
+  </body>
+</html>
