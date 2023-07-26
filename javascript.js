@@ -111,8 +111,13 @@ spellList.forEach(addSpell);
 
 const addButton = document.querySelector('#addButton');
 const addSpellForm = document.querySelector('#addSpell');
+const cancelButton = document.querySelector('#cancel');
 
 addButton.addEventListener('click', () => {
   addSpellForm.style.display = 'grid';
+});
+
+cancelButton.addEventListener('click', () => {
+  addSpellForm.style.display = 'none';
 });
 
