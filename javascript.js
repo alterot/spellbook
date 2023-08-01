@@ -31,11 +31,15 @@ if (savedSpellList) {
   spellList = JSON.parse(savedSpellList);
 }
 
-function Spell(name, level, description) {
-  this.name = name
-  this.level = level
-  this.description = description
-};
+spellList.sort((spellA, spellB) => spellA.level - spellB.level);
+
+class Spell {
+  constructor(name, level, description) {
+    this.name = name;
+    this.level = level;
+    this.description = description;
+  }
+}
 
 const form = document.getElementById('addSpell');
 
@@ -46,7 +50,7 @@ form.addEventListener('submit', function(event) {
   const level = parseInt(document.getElementById('level').value);
   const description = document.getElementById('description').value;
 
-  const newSpell = {name, level, description};
+  const newSpell = new Spell (name, level, description);
 
   spellList.push(newSpell);
   localStorage.setItem('spellList', JSON.stringify(spellList)); //update the API
