@@ -115,7 +115,14 @@ button:hover {
 .removeSpell {
   font-size: 0.75rem;
   padding: 10px;
+  margin: 10px;
 }
+
+.blur {
+  filter: blur(5px); 
+  pointer-events: none; 
+}
+
 
 
 /* STYLING FOR THE FORM */
@@ -123,7 +130,7 @@ button:hover {
 #addSpell {
   display: none;
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 9999;
@@ -134,10 +141,10 @@ form {
   border: solid 1px white;
   border-radius: 5px;
   gap: 20px;
-  max-width: 400px;
+  width: 400px;
   margin: 0 auto;
   padding: 20px;
-  background-color: rgba(0, 0, 0, 1);
+  background-color:#000;
 }
 
 label {

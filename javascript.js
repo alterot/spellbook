@@ -1,3 +1,6 @@
+//MAKE SURE FORMS IS CLEARED AFTER CANCEL IS PRESSER
+//ADD BLUR FUNCTION FOR EDIT SPELL AS WELL, also include blockquote and footer
+
 let spellList = [
   {
     name: "Detect Magic",
@@ -22,16 +25,12 @@ let spellList = [
     level: 3,
     description: "For when shit has hit the fan, but mostly for recreational purposes. Who doesn't enjoy blasting a large group of 'Bandit X', ey?"
   }
-
 ];
 
-const savedSpellList = localStorage.getItem('spellList'); //check if there is a localStorage API
-
+const savedSpellList = localStorage.getItem('spellList');
 if (savedSpellList) {
   spellList = JSON.parse(savedSpellList);
 }
-
-spellList.sort((spellA, spellB) => spellA.level - spellB.level);
 
 class Spell {
   constructor(name, level, description) {
@@ -39,6 +38,16 @@ class Spell {
     this.level = level;
     this.description = description;
   }
+}
+
+function sortSpells() {
+  spellList.sort((spellA, spellB) => spellA.level - spellB.level);
+  }
+  
+function refreshSpellList() {
+  spells.innerHTML = '';
+  spellList.forEach(addSpell);
+  sortSpells();
 }
 
 const form = document.getElementById('addSpell');
@@ -50,16 +59,30 @@ form.addEventListener('submit', function(event) {
   const level = parseInt(document.getElementById('level').value);
   const description = document.getElementById('description').value;
 
-  const newSpell = new Spell (name, level, description);
+  if (form.getAttribute('data-edit-mode') === 'true') {
+    const spellId = parseInt(form.getAttribute('data-spell-id'));
+    if (!isNaN(spellId) && spellId >= 0 && spellId < spellList.length) {
+      spellList[spellId] = new Spell(name, level, description);
+      localStorage.setItem('spellList', JSON.stringify(spellList));
 
-  spellList.push(newSpell);
-  localStorage.setItem('spellList', JSON.stringify(spellList)); //update the API
+      refreshSpellList();
 
+      form.reset();
+      form.removeAttribute('data-edit-mode'); 
+      addSpellForm.style.display = 'none';
+    }
+  } else {
+    const newSpell = new Spell(name, level, description);
+    spellList.push(newSpell);
+    localStorage.setItem('spellList', JSON.stringify(spellList));
+    addSpell(newSpell);
+  }
 
   form.reset();
+  form.removeAttribute('data-edit-mode');
   addSpellForm.style.display = 'none';
-  addSpell(newSpell);
 });
+
 
 const spells = document.querySelector('.spellList');
 
@@ -79,6 +102,13 @@ function addSpell(spell) {
   descriptionElement.classList.add('spellDescription');
   descriptionElement.textContent = `Description: ${spell.description}`;
 
+  const editButton = document.createElement('button');
+  editButton.classList.add('removeSpell');
+  editButton.classList.add('editButton')
+  editButton.textContent = 'Update';
+  editButton.setAttribute('data-spell-id', spellList.indexOf(spell));
+  editButton.addEventListener('click', editSpell);
+
   const removeButton = document.createElement('button');
   removeButton.classList.add('removeSpell');
   removeButton.textContent = 'Remove';
@@ -88,20 +118,43 @@ function addSpell(spell) {
   spellItem.appendChild(nameElement);
   spellItem.appendChild(levelElement);
   spellItem.appendChild(descriptionElement);
+  spellItem.appendChild(editButton);
   spellItem.appendChild(removeButton);
 
   spells.appendChild(spellItem);
 
+  sortSpells();
+
   console.log('data-spell-id:', spellList.indexOf(spell));
+}
+
+function editSpell(event) {
+  const button = event.target;
+  const spellId = parseInt(button.getAttribute('data-spell-id'));
+
+  if (!isNaN(spellId) && spellId >= 0 && spellId < spellList.length) {
+    const spell = spellList[spellId];
+
+    document.getElementById('name').value = spell.name;
+    document.getElementById('level').value = spell.level;
+    document.getElementById('description').value = spell.description;
+
+    form.setAttribute('data-edit-mode', 'true');
+    form.setAttribute('data-spell-id', spellId);
+    const submitButton = form.querySelector('button[type="submit"]');
+    submitButton.textContent = 'Update Spell';
+
+    addSpellForm.style.display = 'grid';
+  }
 }
 
 function removeSpell(event) {
   const button = event.target;
   const spellId = parseInt(button.getAttribute('data-spell-id'));
   
-  if (!isNaN(spellId) && spellId >= 0 && spellId < spellList.length) { //not sure if this check is really necessary
+  if (!isNaN(spellId) && spellId >= 0 && spellId < spellList.length) { 
     spellList.splice(spellId, 1);
-    localStorage.setItem('spellList', JSON.stringify(spellList)); //update the API
+    localStorage.setItem('spellList', JSON.stringify(spellList)); 
     button.parentNode.remove(); 
 
     const removeButtons = document.querySelectorAll('.removeSpell');
@@ -116,12 +169,15 @@ spellList.forEach(addSpell);
 const addButton = document.querySelector('#addButton');
 const addSpellForm = document.querySelector('#addSpell');
 const cancelButton = document.querySelector('#cancel');
+const spellListDiv = document.querySelector('.spellList'); 
+const blurElements = [document.querySelector('header'), addButton, spellListDiv];
 
 addButton.addEventListener('click', () => {
+  blurElements.forEach(element => element.classList.add('blur'));
   addSpellForm.style.display = 'grid';
 });
 
 cancelButton.addEventListener('click', () => {
+  blurElements.forEach(element => element.classList.remove('blur'));
   addSpellForm.style.display = 'none';
 });
-
