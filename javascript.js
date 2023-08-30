@@ -81,6 +81,7 @@ form.addEventListener('submit', function(event) {
   form.reset();
   form.removeAttribute('data-edit-mode');
   addSpellForm.style.display = 'none';
+  blurElements.forEach((element) => element.classList.remove('blur'));
 });
 
 
@@ -145,6 +146,7 @@ function editSpell(event) {
     submitButton.textContent = 'Update Spell';
 
     addSpellForm.style.display = 'grid';
+    applyBlurEffect();
   }
 }
 
@@ -170,14 +172,24 @@ const addButton = document.querySelector('#addButton');
 const addSpellForm = document.querySelector('#addSpell');
 const cancelButton = document.querySelector('#cancel');
 const spellListDiv = document.querySelector('.spellList'); 
-const blurElements = [document.querySelector('header'), addButton, spellListDiv];
+const blurElements = [
+  document.querySelector('header'),
+  document.querySelector('blockquote'),  
+  addButton,
+  spellListDiv
+];
+
+function applyBlurEffect() {
+  blurElements.forEach(element => element.classList.add('blur'));
+}
 
 addButton.addEventListener('click', () => {
-  blurElements.forEach(element => element.classList.add('blur'));
   addSpellForm.style.display = 'grid';
+  applyBlurEffect();
 });
 
 cancelButton.addEventListener('click', () => {
+  form.reset();
   blurElements.forEach(element => element.classList.remove('blur'));
   addSpellForm.style.display = 'none';
 });
